@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+/*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
+
+
+body {
+  /*background-color: #c3d0ff;*/
+}
+.container {
+  /*margin-top: 50px;*/
+}
+.card {
+  /*margin-bottom: 20px;*/
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1560px !important;
+  }
+}
+
+@media (min-width: 1800px) {
+  .container {
+    max-width: 1760px !important;
+  }
+}
+
+.display-5 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  line-height: 1;
+}
+
+.display-6 {
+  font-size: 2rem;
+  font-weight: 200;
+  line-height: 1;
+}

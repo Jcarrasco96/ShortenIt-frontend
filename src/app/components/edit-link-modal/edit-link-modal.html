@@ -1,0 +1,33 @@
+<div #modalElement class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" [formGroup]="editForm" (ngSubmit)="submit()">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Link</h5>
+        <button type="button" class="btn-close" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">URL</label>
+          <input
+            type="url"
+            class="form-control"
+            formControlName="original_url"
+            [class.is-invalid]="editForm.get('original_url')?.invalid && editForm.get('original_url')?.touched"
+            required>
+          @if (editForm.get('original_url')?.touched && editForm.get('original_url')?.errors) {
+            <div class="invalid-feedback">
+              @if (editForm.get('original_url')?.errors?.['customError']) {
+                {{ editForm.get('original_url')?.errors?.['customError'] }}
+              }
+<!--              Please choose a username.-->
+            </div>
+          }
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+        <button class="btn btn-primary" type="submit" [disabled]="editForm.invalid">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
