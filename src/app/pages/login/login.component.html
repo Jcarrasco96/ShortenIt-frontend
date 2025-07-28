@@ -1,23 +1,24 @@
 <div class="containers d-flex justify-content-center align-items-center min-vh-100" @loaded>
-  <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
-    <h2 class="mb-3 text-center display-3"><i class="bi bi-scissors"></i> ShortenIt</h2>
-    <h4 class="mb-3 text-center">Log in</h4>
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+    <h2 class="mb-2 text-center display-3"><i class="bi bi-scissors"></i> ShortenIt</h2>
+    <h4 class="mb-2 text-center">Log in</h4>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label for="username" class="form-label">Username</label>
+      <div class="mb-2">
+        <label for="email" class="form-label">Email</label>
         <input
-          type="text"
-          id="username"
+          type="email"
+          id="email"
           class="form-control"
-          formControlName="username"
-          [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+          formControlName="email"
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          [class.is-valid]="loginForm.get('email')?.valid && loginForm.get('email')?.touched"
         />
-        @if (loginForm.get('username')?.touched && loginForm.get('username')?.errors) {
-          <div class="invalid-feedback">Username required</div>
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors) {
+          <div class="invalid-feedback">Email required</div>
         }
       </div>
 
-      <div class="mb-3">
+      <div class="mb-2">
         <label for="password" class="form-label">Password</label>
         <input
           type="password"
@@ -25,6 +26,7 @@
           class="form-control"
           formControlName="password"
           [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          [class.is-valid]="loginForm.get('password')?.valid && loginForm.get('password')?.touched"
         />
         @if (loginForm.get('password')?.touched && loginForm.get('password')?.errors) {
           <div class="invalid-feedback">
@@ -36,7 +38,6 @@
             }
           </div>
         }
-
       </div>
 
       <button class="btn btn-primary w-100" [disabled]="loginForm.invalid || loading">

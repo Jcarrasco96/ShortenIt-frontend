@@ -1,5 +1,5 @@
 import {GenericResponse} from '@app/interfaces/generic-response';
-import {Link} from '@app/models/link';
+import {Link} from '@app/interfaces/link';
 
 export interface LinkResponse extends GenericResponse {
 

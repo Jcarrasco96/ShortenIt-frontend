@@ -1,0 +1,8 @@
+<div class="alert-container position-fixed top-0 end-0 mt-5 mx-2" style="z-index: 999999; max-width: 400px; width: 100%;">
+  @for (toast of toastService.toasts(); track toast) {
+    <div class="alert alert-dismissible fade show mb-2 mt-0" [ngClass]="toast.classname || 'alert-primary'" role="alert" [@slideInOut]>
+      {{ toast.text }}
+      <button type="button" class="btn-close" aria-label="Close" (click)="toastService.remove(toast)"></button>
+    </div>
+  }
+</div>

@@ -4,7 +4,10 @@
 
 export const environment = {
   baseUrl: 'http://localhost/website/shortenIt',
-  production: false
+  production: false,
+  appName: 'ShortenIt',
+  appNameShort: 'ShortenIt',
+  appVersion: '1.0.0 beta'
 };
 
 /*
