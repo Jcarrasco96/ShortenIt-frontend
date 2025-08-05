@@ -1,30 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LinksService} from '@app/services/links.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {loadedAnimation} from '@app/animations/loaded.animation';
 
 @Component({
+  standalone: true,
   selector: 'app-link-redirect',
   imports: [],
   templateUrl: './link-redirect.component.html',
-  styleUrl: './link-redirect.component.css'
+  animations: [loadedAnimation]
 })
 export class LinkRedirectComponent implements OnInit {
 
-  constructor(
-    private route: ActivatedRoute,
-    private linksService: LinksService,
-    private router: Router
-  ) {}
+  private route = inject(ActivatedRoute);
+  private linksService = inject(LinksService);
+  private router = inject(Router);
 
   ngOnInit() {
     const code = this.route.snapshot.paramMap.get('code');
     if (code) {
-      this.linksService.visitLink(code).subscribe({
+      this.linksService.visit(code).subscribe({
         next: (res) => {
 
-          if (res.link.original_url) {
-            window.location.href = res.link.original_url;
+          if (res.data.original_url) {
+            //window.location.href = res.link.original_url;
           } else {
             console.error('URL original no encontrada');
           }

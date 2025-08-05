@@ -1,0 +1,122 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Staff renew</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
+</div>
+
+<div class="modal-body">
+
+@if (!loading) {
+
+  <div class="table-responsive mb-0">
+    <table class="table table-hover table-bordered table-sm mb-0">
+      <thead>
+      <tr>
+        @for (column of columns; track column.value) {
+          <th scope="col" class="align-bottom" [class]="column.class">{{ column.name }}</th>
+        }
+      </tr>
+      </thead>
+      <tbody>
+        @for (d of data; track d.id;) {
+          <tr>
+            <td class="align-middle">{{ d.name }}</td>
+            <td class="align-middle d-none">{{ d.position }}</td>
+            <td class="align-middle d-none"><a href="mailto:{{ d.email }}">{{ d.email }}</a></td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.driver_license)">
+              {{ d.driver_license | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.driver_license)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.driver_license)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.professional_license)">
+              {{ d.professional_license | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.professional_license)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.professional_license)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.professional_license2)">
+              {{ d.professional_license2 | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.professional_license2)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.professional_license2)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.ahca)">
+              {{ d.ahca | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.ahca)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.ahca)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center">{{ d.fars }}</td>
+            <td class="align-middle text-center">{{ d.cfars }}</td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.cpr)">
+              {{ d.cpr | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.cpr)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.cpr)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.first_aid)">
+              {{ d.first_aid | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.first_aid)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.first_aid)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.hipaa)">
+              {{ d.hipaa | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.hipaa)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.hipaa)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.osha)">
+              {{ d.osha | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.osha)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.osha)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.hiv_aids)">
+              {{ d.hiv_aids | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.hiv_aids)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.hiv_aids)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.domestic_violence)">
+              {{ d.domestic_violence | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.domestic_violence)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.domestic_violence)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.medical_error)">
+              {{ d.medical_error | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.medical_error)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.medical_error)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.infection_control)">
+              {{ d.infection_control | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.infection_control)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.infection_control)" style="cursor: help;"></i>
+              }
+            </td>
+            <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.patient_rights)">
+              {{ d.patient_rights | date:'MM/dd/yyyy' }}
+              @if (DateUtils.expirationTooltip(d.patient_rights)) {
+                <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.patient_rights)" style="cursor: help;"></i>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="align-middle" colspan="11">Empty list</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+} @else {
+  <h3 class="mb-0">
+    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+    <span role="status">Refreshing...</span>
+  </h3>
+}
+
+</div>

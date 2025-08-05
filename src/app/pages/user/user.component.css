@@ -1,0 +1,22 @@
+th, td {
+  white-space: nowrap;
+}
+
+.sticky-col-left {
+  position: sticky;
+  left: 0;
+  background-color: #f5f5f5;
+  z-index: 1;
+}
+
+.sticky-col-right {
+  position: sticky;
+  right: 0;
+  background-color: #f5f5f5;
+  z-index: 1;
+}
+
+thead .sticky-col-left,
+thead .sticky-col-right {
+  z-index: 2;
+}

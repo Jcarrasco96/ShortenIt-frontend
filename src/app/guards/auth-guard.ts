@@ -1,16 +1,14 @@
 import {CanActivateFn, Router} from '@angular/router';
 import {inject} from '@angular/core';
-import {TokenService} from '@app/services/token.service';
+import {AuthStore} from '@app/store/auth.store';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  if (state.url.startsWith('/link/')) {
+  if (route.data['public']) {
     return true;
   }
 
   const router = inject(Router);
-  const tokenService = inject(TokenService);
+  const authStore = inject(AuthStore);
 
-  const isLoggedIn = sessionStorage.getItem('auth') === 'true' && tokenService.getToken() != null;
-
-  return isLoggedIn ? true : router.parseUrl('/login');
+  return !!authStore.accessToken() ? true : router.parseUrl('/login');
 };

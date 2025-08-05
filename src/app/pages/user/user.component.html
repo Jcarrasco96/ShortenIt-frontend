@@ -1,0 +1,143 @@
+<div @loaded>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      @if (!loading) {
+
+        <div class="d-flex align-items-center mb-2 d-print-none">
+          <div class="flex-grow-1">
+            <h3>Users</h3>
+          </div>
+
+          <button type="button" class="btn btn-outline-primary me-2" (click)="openStaffRenewModal()"><i class="bi bi-journal-x"></i> Show expired records</button>
+          <button type="button" class="btn btn-outline-primary me-2" (click)="openCreateModal()"><i class="bi bi-plus-lg"></i></button>
+
+          <div class="col-md-6 col-lg-3">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="params.search" (keyup.enter)="resetTable()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive mb-3">
+          <table class="table table-hover table-bordered table-sm mb-0">
+            <thead>
+            <tr>
+              @for (column of columns; track column.value) {
+                <th scope="col" class="align-bottom" [class]="column.class">
+                  <a href="#" (click)="sortBy(column.value); $event.preventDefault()">
+                    {{ column.name }}
+                    @if (sortColumn === column.value) {
+                      @if (sortDirection === 'asc') {
+                        <i class="bi bi-caret-up-fill"></i>
+                      } @else {
+                        <i class="bi bi-caret-down-fill"></i>
+                      }
+                    }
+                  </a>
+                </th>
+              }
+              <th class="align-bottom text-center d-print-none" style="width: 90px;">Options</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (d of data; track d.id;) {
+                <tr>
+                  <td class="align-middle">{{ d.name }}</td>
+                  <td class="align-middle">{{ d.position }}</td>
+                  <td class="align-middle"><a href="mailto:{{ d.email }}">{{ d.email }}</a></td>
+                  <td class="align-middle text-center"><a href="tel:{{ d.phone_number }}">{{ d.phone_number }}</a></td>
+                  <td class="align-middle text-center">{{ d.npi }}</td>
+                  <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.driver_license)">
+                    {{ d.driver_license | date:'MM/dd/yyyy' }}
+                    @if (DateUtils.expirationTooltip(d.driver_license)) {
+                      <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.driver_license)" style="cursor: help;"></i>
+                    }
+                  </td>
+                  <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.professional_license)">
+                    {{ d.professional_license | date:'MM/dd/yyyy' }}
+                    @if (DateUtils.expirationTooltip(d.professional_license)) {
+                      <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.professional_license)" style="cursor: help;"></i>
+                    }
+                  </td>
+                  <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.professional_license2)">
+                    {{ d.professional_license2 | date:'MM/dd/yyyy' }}
+                    @if (DateUtils.expirationTooltip(d.professional_license2)) {
+                      <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.professional_license2)" style="cursor: help;"></i>
+                    }
+                  </td>
+                  <td class="align-middle text-center" [ngClass]="DateUtils.dateClass(d.ahca)">
+                    {{ d.ahca | date:'MM/dd/yyyy' }}
+                    @if (DateUtils.expirationTooltip(d.ahca)) {
+                      <i class="bi bi-info-circle-fill" [title]="DateUtils.expirationTooltip(d.ahca)" style="cursor: help;"></i>
+                    }
+                  </td>
+                  <td class="align-middle text-center">{{ d.status }}</td>
+                  <td class="align-middle text-center d-print-none">
+                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="openEditCertificationsModal(d)"><i class="bi bi-journal-bookmark-fill"></i></button>
+                    <button type="button" class="btn btn-outline-primary btn-sm ms-1" (click)="openEditModal(d)"><i class="bi bi-pencil-fill"></i></button>
+                    <button type="button" class="btn btn-outline-danger btn-sm ms-1" (click)="delete(d.id)"><i class="bi bi-trash-fill"></i></button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td class="align-middle" colspan="11">Empty list</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex align-items-center d-print-none">
+          <ngb-pagination [collectionSize]="totalItems" [pageSize]="params.limit" [(page)]="params.page" [boundaryLinks]="true" (pageChange)="goToPage($event)" class="me-auto">
+            <ng-template ngbPaginationPages let-page>
+              @if (totalPages() > 0) {
+                <li class="ngb-custom-pages-item">
+                  <div class="d-flex flex-nowrap px-2">
+                    <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Page</label>
+                    <input
+                      #i
+                      type="text"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      class="form-control custom-pages-input"
+                      id="paginationInput"
+                      [value]="page"
+                      (keyup.enter)="goToPage(i.value)"
+                      (blur)="goToPage(i.value)"
+                      (input)="formatInput($any($event).target)"
+                      aria-labelledby="paginationInputLabel paginationDescription"
+                      style="width: 2.5rem"
+                    />
+                    <span id="paginationDescription" class="col-form-label text-nowrap px-2"> of {{ totalPages() }}</span>
+                  </div>
+                </li>
+              }
+            </ng-template>
+          </ngb-pagination>
+
+          <select class="form-select mb-3" style="width: auto" name="pageSize" [(ngModel)]="params.limit" (change)="resetTable()">
+            <option [ngValue]="10">10 items per page</option>
+            <option [ngValue]="25">25 items per page</option>
+            <option [ngValue]="50">50 items per page</option>
+            <option [ngValue]="100">100 items per page</option>
+            <option [ngValue]="250">250 items per page</option>
+            <option [ngValue]="250">250 items per page</option>
+          </select>
+
+          <button type="button" class="btn btn-outline-primary mb-3 ms-2" (click)="loadData()">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+
+        </div>
+      } @else {
+        <h3 class="mb-0">
+          <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+          <span role="status">Refreshing...</span>
+        </h3>
+      }
+
+    </div>
+  </div>
+
+</div>

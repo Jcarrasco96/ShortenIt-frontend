@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ title }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input
+        type="url"
+        class="form-control"
+        formControlName="name"
+        [class.is-invalid]="form.get('name')?.invalid && form.get('name')?.touched"
+        [class.is-valid]="form.get('name')?.valid"
+        required>
+      <div class="invalid-feedback">
+        @if (form.get('name')?.touched && form.get('name')?.errors) {
+          @if (form.get('name')?.errors?.['required']) {
+            This field is required.
+          }
+          @if (form.get('name')?.errors?.['customError']) {
+            {{ form.get('name')?.errors?.['customError'] }}
+          }
+        }
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Position</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="position"
+        [class.is-invalid]="form.get('position')?.invalid && form.get('position')?.touched"
+        [class.is-valid]="form.get('position')?.valid"
+        required>
+      <div class="invalid-feedback">
+        @if (form.get('position')?.touched && form.get('position')?.errors) {
+          @if (form.get('position')?.errors?.['required']) {
+            This field is required.
+          }
+          @if (form.get('position')?.errors?.['customError']) {
+            {{ form.get('position')?.errors?.['customError'] }}
+          }
+        }
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        formControlName="email"
+        [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+        [class.is-valid]="form.get('email')?.valid"
+        required>
+      <div class="invalid-feedback">
+        @if (form.get('email')?.touched && form.get('email')?.errors) {
+          @if (form.get('email')?.errors?.['required']) {
+            This field is required.
+          }
+          @if (form.get('email')?.errors?.['customError']) {
+            {{ form.get('email')?.errors?.['customError'] }}
+          }
+        }
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Phone number</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="phone_number"
+        [class.is-invalid]="form.get('phone_number')?.invalid && form.get('phone_number')?.touched"
+        [class.is-valid]="form.get('phone_number')?.valid"
+        required>
+      <div class="invalid-feedback">
+        @if (form.get('phone_number')?.touched && form.get('phone_number')?.errors) {
+          @if (form.get('phone_number')?.errors?.['required']) {
+            This field is required.
+          }
+          @if (form.get('phone_number')?.errors?.['customError']) {
+            {{ form.get('phone_number')?.errors?.['customError'] }}
+          }
+        }
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" ngbAutofocus [disabled]="loading" (click)="dismiss()"><i class="bi bi-x-lg"></i> Cancel</button>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        <span role="status">Loading...</span>
+      } @else {
+        <i class="bi bi-floppy"></i> Save
+      }
+    </button>
+  </div>
+</form>

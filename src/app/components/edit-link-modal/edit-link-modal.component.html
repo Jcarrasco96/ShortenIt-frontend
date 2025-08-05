@@ -1,0 +1,57 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Update Link</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
+</div>
+
+<form [formGroup]="editForm" (ngSubmit)="save()">
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">URL</label>
+      <input
+        type="url"
+        class="form-control"
+        formControlName="original_url"
+        [class.is-invalid]="editForm.get('original_url')?.invalid && editForm.get('original_url')?.touched"
+        [class.is-valid]="editForm.get('original_url')?.valid"
+        required>
+      <div class="invalid-feedback">
+        @if (editForm.get('original_url')?.touched && editForm.get('original_url')?.errors) {
+          @if (editForm.get('original_url')?.errors?.['pattern']) {
+            Please enter a valid URL.
+          }
+          @if (editForm.get('original_url')?.errors?.['required']) {
+            This field is required.
+          }
+          @if (editForm.get('original_url')?.errors?.['customError']) {
+            {{ editForm.get('original_url')?.errors?.['customError'] }}
+          }
+        }
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Short code</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="short_code"
+        [class.is-invalid]="editForm.get('short_code')?.invalid && editForm.get('short_code')?.touched"
+        [class.is-valid]="editForm.get('short_code')?.valid"
+        required>
+      <div class="invalid-feedback">
+        @if (editForm.get('short_code')?.touched && editForm.get('short_code')?.errors) {
+          @if (editForm.get('short_code')?.errors?.['required']) {
+            This field is required.
+          }
+          @if (editForm.get('short_code')?.errors?.['customError']) {
+            {{ editForm.get('short_code')?.errors?.['customError'] }}
+          }
+        }
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" ngbAutofocus type="button" (click)="dismiss()">Cancel</button>
+    <button class="btn btn-primary" type="submit" [disabled]="editForm.invalid">Save</button>
+  </div>
+</form>

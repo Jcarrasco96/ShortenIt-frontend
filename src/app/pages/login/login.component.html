@@ -1,0 +1,57 @@
+<div class="containers d-flex justify-content-center align-items-center min-vh-100" @loaded>
+  <div class="card p-4 shadow-sm" style="width: 100%; max-width: 400px;">
+    <h2 class="mb-2 text-center display-3"><i class="bi bi-patch-check"></i></h2>
+    <h2 class="mb-2 text-center">{{ environment.appName }}</h2>
+    <h3 class="mb-2 text-center">Certifications</h3>
+    <hr>
+    <h4 class="mb-2 text-center">Log in</h4>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-2">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          [class.is-valid]="loginForm.get('email')?.valid && loginForm.get('email')?.touched"
+        />
+        @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors) {
+          <div class="invalid-feedback">Email required</div>
+        }
+      </div>
+
+      <div class="mb-2">
+        <label for="password" class="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          [class.is-valid]="loginForm.get('password')?.valid && loginForm.get('password')?.touched"
+        />
+        @if (loginForm.get('password')?.touched && loginForm.get('password')?.errors) {
+          <div class="invalid-feedback">
+            @if (loginForm.get('password')?.errors?.['required']) {
+              Password required.
+            }
+            @if (loginForm.get('password')?.errors?.['customError']) {
+              {{ loginForm.get('password')?.errors?.['customError'] }}
+            }
+          </div>
+        }
+      </div>
+
+      <button class="btn btn-primary w-100" [disabled]="loginForm.invalid || loading">
+        @if (loading) {
+          <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+          <span role="status">Loading...</span>
+        } @else {
+          <i class="bi bi-box-arrow-in-right"></i> Login
+        }
+      </button>
+
+    </form>
+  </div>
+</div>

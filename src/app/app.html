@@ -1,7 +1,29 @@
-@if (isLoggedIn && !isLoginRoute()) {
-  <header>
-    <app-navbar></app-navbar>
-  </header>
-}
+<div class="d-flex flex-column h-100">
 
-<router-outlet></router-outlet>
+  <ng-progress ngProgressHttp ngProgressRouter></ng-progress>
+
+  <app-toast></app-toast>
+
+  @if (!appInitialized) {
+    <div class="containers d-flex justify-content-center align-items-center min-vh-100">
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (isLoggedIn || showLayout) {
+    <header class="d-print-none">
+      <app-navbar></app-navbar>
+    </header>
+
+    <main class="flex-shrink-0">
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+
+    <app-footer class="mt-auto"></app-footer>
+  } @else {
+    <router-outlet></router-outlet>
+  }
+
+</div>

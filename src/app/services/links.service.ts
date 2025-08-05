@@ -1,33 +1,36 @@
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {ApiService} from '@app/services/api.service';
 import {Observable} from 'rxjs';
-import {LinksResponse} from '@app/interfaces/links-response';
-import {LinkResponse} from '@app/interfaces/link-response';
+import {ParamsRequest} from '@app/interfaces/params-request';
+import {Link} from '@app/interfaces/models/link';
+import {SingleDataResponse} from '@app/interfaces/responses/single-data-response';
+import {DataResponse} from '@app/interfaces/responses/data-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LinksService {
 
-  constructor(
-    private apiService: ApiService
-  ) {
+  private apiService = inject(ApiService)
+
+  links(params: ParamsRequest): Observable<DataResponse<Link>> {
+    return this.apiService.get('v1/links', params);
   }
 
-  getLinks(): Observable<LinksResponse> {
-    return this.apiService.get('v1/links?order=original_url:asc');
-  }
-
-  shortenUrl(url: string): Observable<LinkResponse> {
+  short(url: string): Observable<SingleDataResponse<Link>> {
     return this.apiService.post('v1/links', { url });
   }
 
-  visitLink(code: string): Observable<LinkResponse> {
+  visit(code: string): Observable<SingleDataResponse<Link>> {
     return this.apiService.get(`v1/links/${code}/stats`);
   }
 
-  deleteLink(id: string): Observable<void> {
+  delete(id: string): Observable<void> {
     return this.apiService.delete(`v1/links/${id}`);
+  }
+
+  update(id: string, data: {}) {
+    return this.apiService.put(`v1/links/${id}`, data);
   }
 
 }

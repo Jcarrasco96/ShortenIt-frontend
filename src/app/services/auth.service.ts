@@ -1,28 +1,22 @@
-import {Injectable} from '@angular/core';
-import { Observable, tap} from 'rxjs';
+import {inject, Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {LoginResponse} from '@app/interfaces/responses/login-response';
+import {GenericResponse} from '@app/interfaces/responses/generic-response';
 import {ApiService} from '@app/services/api.service';
-import {LoginResponse} from '@app/interfaces/login-response';
-import {AuthManagerService} from '@app/services/auth-manager.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(
-    private apiService: ApiService,
-    private authManagerService: AuthManagerService
-  ) {}
+  private apiService = inject(ApiService);
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    return this.apiService.post('v1/auth/login', {
-      username: username,
-      password: password
-    }).pipe(
-      tap((response: LoginResponse) => {
-        this.authManagerService.login(response.token);
-      })
-    );
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.apiService.post('v1/auth/login', { email, password });
+  }
+
+  logout(refresh_token: string | null): Observable<GenericResponse | null> {
+    return this.apiService.post('v1/auth/logout', { refresh_token });
   }
 
 }

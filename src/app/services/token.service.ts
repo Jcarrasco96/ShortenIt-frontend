@@ -1,24 +1,29 @@
-import { Injectable } from '@angular/core';
-
-const TOKEN_KEY = 'token.shorten.it';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() {}
+  private accessTokenKey = 'access_token';
+  private refreshTokenKey = 'refresh_token';
 
-  getToken(): string | null {
-    return sessionStorage.getItem(TOKEN_KEY);
+  accessToken(): string | null {
+    return localStorage.getItem(this.accessTokenKey);
   }
 
-  setToken(token: string) {
-    sessionStorage.setItem(TOKEN_KEY, token);
+  refreshToken(): string | null {
+    return localStorage.getItem(this.refreshTokenKey);
+  }
+
+  setTokens(tokens: { access_token: string, refresh_token: string }) {
+    localStorage.setItem(this.accessTokenKey, tokens.access_token);
+    localStorage.setItem(this.refreshTokenKey, tokens.refresh_token);
   }
 
   clearToken() {
-    sessionStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
   }
 
 }

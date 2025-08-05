@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand navbar-dark bg-primary fixed-top shadow">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">{{ environment.appNameShort }} - Certifications</a>
+    <div id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item ms-1 d-none">
+          <a class="nav-link" routerLink="/home" routerLinkActive="active"><i class="bi bi-house"></i> Home</a>
+        </li>
+        <li class="nav-item ms-1">
+          <a class="nav-link" routerLink="/certifications" routerLinkActive="active"><i class="bi bi-journal-medical"></i><span class="d-none d-md-inline"> Certifications</span></a>
+        </li>
+        <li class="nav-item ms-1">
+          <a class="nav-link" routerLink="/users" routerLinkActive="active"><i class="bi bi-person"></i><span class="d-none d-md-inline"> Users</span></a>
+        </li>
+        <li class="nav-item ms-1 d-none">
+          <a class="nav-link" routerLink="/clients" routerLinkActive="active"><i class="bi bi-person"></i><span class="d-none d-md-inline"> Clients</span></a>
+        </li>
+        <li class="nav-item ms-1">
+          <a class="nav-link" routerLink="/" (click)="logout()"><i class="bi bi-box-arrow-right"></i><span class="d-none d-md-inline"> Logout</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

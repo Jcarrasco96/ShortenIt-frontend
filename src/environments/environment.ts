@@ -4,7 +4,10 @@
 
 export const environment = {
   baseUrl: 'http://localhost/website/shortenIt',
-  production: false
+  production: false,
+  appName: 'Universal Health Care Community Services',
+  appNameShort: 'UHCCS',
+  appVersion: '1.0.0 beta'
 };
 
 /*

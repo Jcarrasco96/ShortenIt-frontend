@@ -1,0 +1,159 @@
+<div @loaded>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      @if (!loading) {
+
+        <div class="table-responsive mb-3">
+          <table class="table table-hover table-bordered table-sm mb-0">
+            <thead>
+            <tr>
+              @for (column of columns; track column.value) {
+                <th scope="col" class="align-bottom" [class]="column.class">
+                  <a href="#" (click)="sortBy(column.value); $event.preventDefault()">
+                    {{ column.name }}
+                    @if (sortColumn === column.value) {
+                      @if (sortDirection === 'asc') {
+                        <i class="bi bi-caret-up-fill"></i>
+                      } @else {
+                        <i class="bi bi-caret-down-fill"></i>
+                      }
+                    }
+                  </a>
+                </th>
+              }
+              <th class="align-bottom text-center d-print-none" style="width: 90px;">Options</th>
+            </tr>
+            <tr>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.first_name" (keydown.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.middle_name" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.last_name" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.dob" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.gender" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.identification_type" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.identification_presented" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.incident_report_number" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.incident_date" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+              <th>
+                <div class="input-group input-group-sm">
+                  <input type="text" class="form-control" [(ngModel)]="params.filters.case_status" (keyup.enter)="resetTable()" />
+                </div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (client of clients; track client.id;) {
+                <tr class="{{ client.class }}">
+                  <td class="align-middle">{{ client.first_name }}</td>
+                  <td class="align-middle">{{ client.middle_name }}</td>
+                  <td class="align-middle">{{ client.last_name }}</td>
+                  <td class="align-middle">{{ client.dob }}</td>
+                  <td class="align-middle">{{ client.gender }}</td>
+                  <td class="align-middle">{{ client.identification_type }}</td>
+                  <td class="align-middle">{{ client.identification_presented }}</td>
+                  <td class="align-middle">{{ client.incident_report_number }}</td>
+                  <td class="align-middle">{{ client.incident_date }}</td>
+                  <td class="align-middle">{{ client.case_status }}</td>
+                  <td class="align-middle text-center d-print-none">
+                    <button type="button" class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-fill"></i></button>
+                    <button type="button" class="btn btn-outline-danger btn-sm ms-1"><i class="bi bi-trash-fill"></i></button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td class="align-middle" colspan="5">Empty list</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex align-items-center d-print-none">
+          <ngb-pagination [collectionSize]="totalItems" [pageSize]="params.limit" [(page)]="params.page" [boundaryLinks]="true" (pageChange)="goToPage($event)" class="me-auto">
+            <ng-template ngbPaginationPages let-page>
+              @if (totalPages() > 0) {
+                <li class="ngb-custom-pages-item">
+                  <div class="d-flex flex-nowrap px-2">
+                    <label id="paginationInputLabel" for="paginationInput" class="col-form-label me-2 ms-1">Page</label>
+                    <input
+                      #i
+                      type="text"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      class="form-control custom-pages-input"
+                      id="paginationInput"
+                      [value]="page"
+                      (keyup.enter)="goToPage(i.value)"
+                      (blur)="goToPage(i.value)"
+                      (input)="formatInput($any($event).target)"
+                      aria-labelledby="paginationInputLabel paginationDescription"
+                      style="width: 2.5rem"
+                    />
+                    <span id="paginationDescription" class="col-form-label text-nowrap px-2"> of {{ totalPages() }}</span>
+                  </div>
+                </li>
+              }
+            </ng-template>
+          </ngb-pagination>
+
+          <select class="form-select mb-3" style="width: auto" name="pageSize" [(ngModel)]="params.limit" (change)="resetTable()">
+            <option [ngValue]="10">10 items per page</option>
+            <option [ngValue]="25">25 items per page</option>
+            <option [ngValue]="50">50 items per page</option>
+            <option [ngValue]="100">100 items per page</option>
+            <option [ngValue]="250">250 items per page</option>
+            <option [ngValue]="250">250 items per page</option>
+          </select>
+
+          <button type="button" class="btn btn-primary mb-3 ms-2" (click)="load()">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+
+        </div>
+      } @else {
+        <h3 class="mb-0">
+          <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+          <span role="status">Refreshing...</span>
+        </h3>
+      }
+
+    </div>
+  </div>
+
+</div>

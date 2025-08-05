@@ -1,0 +1,17 @@
+.nav-link {
+  border: 1px solid var(--bs-link-color);
+  border-radius: 5px;
+  transition: all ease 0.15s;
+}
+
+.nav-link:hover {
+  border: 1px solid var(--bs-link-hover-color);
+  border-radius: 5px;
+  transition: all ease 0.15s;
+  background-color: var(--bs-link-hover-color);
+}
+
+.nav-link.active {
+  border-radius: 5px;
+  transition: all ease 0.15s;
+}

@@ -1,0 +1,155 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Update certifications for {{ _name }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="dismiss()"></button>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="modal-body">
+
+    <table class="table table-borderless mb-0">
+      <tbody>
+      <tr>
+        <td class="align-middle">NPI</td>
+        <td class="align-middle">
+          <input type="text" class="form-control" formControlName="npi" [class.is-invalid]="!isValid('npi')" [class.is-valid]="isValid('npi')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('npi')"></div>
+        </td>
+        <td class="align-middle"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">Driver License</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="driver_license" [class.is-invalid]="!isValid('driver_license')" [class.is-valid]="isValid('driver_license')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('driver_license')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('driver_license')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">Professional License</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="professional_license" [class.is-invalid]="!isValid('professional_license')" [class.is-valid]="isValid('professional_license')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('professional_license')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('professional_license')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">2nd Professional License</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="professional_license2" [class.is-invalid]="!isValid('professional_license2')" [class.is-valid]="isValid('professional_license2')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('professional_license2')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('professional_license2')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">AHCA</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="ahca" [class.is-invalid]="!isValid('ahca')" [class.is-valid]="isValid('ahca')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('ahca')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('ahca')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">FARS</td>
+        <td class="align-middle">
+          <input type="text" class="form-control" formControlName="fars" [class.is-invalid]="!isValid('fars')" [class.is-valid]="isValid('fars')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('fars')"></div>
+        </td>
+        <td class="align-middle"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">CFARS</td>
+        <td class="align-middle">
+          <input type="text" class="form-control" formControlName="cfars" [class.is-invalid]="!isValid('cfars')" [class.is-valid]="isValid('cfars')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('cfars')"></div>
+        </td>
+        <td class="align-middle"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">CPR</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="cpr" [class.is-invalid]="!isValid('cpr')" [class.is-valid]="isValid('cpr')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('cpr')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('cpr')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">First AID</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="first_aid" [class.is-invalid]="!isValid('first_aid')" [class.is-valid]="isValid('first_aid')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('first_aid')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('first_aid')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">HIPAA</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="hipaa" [class.is-invalid]="!isValid('hipaa')" [class.is-valid]="isValid('hipaa')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('hipaa')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('hipaa')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">OSHA</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="osha" [class.is-invalid]="!isValid('osha')" [class.is-valid]="isValid('osha')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('osha')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('osha')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">HIV/AIDS</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="hiv_aids" [class.is-invalid]="!isValid('hiv_aids')" [class.is-valid]="isValid('hiv_aids')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('hiv_aids')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('hiv_aids')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">Domestic Violence</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="domestic_violence" [class.is-invalid]="!isValid('domestic_violence')" [class.is-valid]="isValid('domestic_violence')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('domestic_violence')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('domestic_violence')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">Medical Error</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="medical_error" [class.is-invalid]="!isValid('medical_error')" [class.is-valid]="isValid('medical_error')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('medical_error')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('medical_error')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">Infection Control</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="infection_control" [class.is-invalid]="!isValid('infection_control')" [class.is-valid]="isValid('infection_control')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('infection_control')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('infection_control')"></td>
+      </tr>
+      <tr>
+        <td class="align-middle">Patient Rights</td>
+        <td class="align-middle">
+          <input type="date" class="form-control" formControlName="patient_rights" [class.is-invalid]="!isValid('patient_rights')" [class.is-valid]="isValid('patient_rights')">
+          <div class="invalid-feedback" [innerHTML]="errorMessage('patient_rights')"></div>
+        </td>
+        <td class="align-middle" [innerHTML]="infoMessage('patient_rights')"></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" ngbAutofocus [disabled]="loading" (click)="dismiss()"><i class="bi bi-x-lg"></i> Cancel</button>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+      @if (loading) {
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        <span role="status">Loading...</span>
+      } @else {
+        <i class="bi bi-floppy"></i> Save
+      }
+    </button>
+  </div>
+</form>
